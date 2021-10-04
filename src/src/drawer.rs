@@ -1,4 +1,4 @@
-use crate::tetris::Size;
+use crate::tetris::{Point, Size};
 use std::io::{stdout};
 
 use crossterm::{
@@ -12,6 +12,7 @@ use crossterm::{
 pub trait Drawer {
     fn resize(&self, size: &Size);
     fn draw_string(&self, x: u16, y: u16, content: &String, color: Option<Color>);
+    fn draw_string_on_point(&self, point: Point, content: &String, color: Option<Color>);
     fn draw_region(&self, x: u16, y: u16, w: u16, h: u16, filler: &String);
     fn draw_frame(&self, x: u16, y: u16, w: u16, h: u16);
 }
@@ -51,6 +52,10 @@ impl Drawer for CommandLineDrawer {
                 .execute(Print(content)).unwrap()
                 .execute(ResetColor).unwrap();
         }
+    }
+
+    fn draw_string_on_point(&self, point: Point, content: &String, color: Option<Color>) {
+        self.draw_string(point.x, point.y, content, color);
     }
 
     fn draw_region(&self, x: u16, y: u16, w: u16, h: u16, filler: &String) {

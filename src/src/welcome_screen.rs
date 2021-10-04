@@ -4,13 +4,13 @@ use crate::screens;
 
 use drawer::Drawer;
 use std::time::{Duration};
-
+use screens::{NextScreen};
 use std::io::{stdout};
 
 use crossterm::{
     execute,
     style::{Color},
-    event::{poll, read, Event, KeyCode},
+    event::{poll, read, Event},
     terminal::{SetTitle},
 };
 
@@ -19,7 +19,7 @@ pub struct WelcomeScreen<'a> {
 }
 
 impl screens::LoadScreen for WelcomeScreen<'_> {
-    fn load(&self) {
+    fn load(&self) -> NextScreen {
         let drawer = drawer::CommandLineDrawer::new();
         let window_size = tetris::Size {
             width: self.settings.welcome_region.width,
@@ -55,13 +55,13 @@ impl screens::LoadScreen for WelcomeScreen<'_> {
         // width of title text in utf8
         let title_width = 46;
         let title_x = (window_size.width - title_width) / 2;
-        let title_y = (window_size.height / 2 - 10) as usize;
-        'outer: loop {
+        let title_y = (window_size.height / 2 - 5) as usize;
+        let next_screen = loop {
             if poll(Duration::from_millis(500)).unwrap() {
                 match read().unwrap() {
                     Event::Key(event) => {
-                        if event.code == KeyCode::Char(' ') {
-                            break 'outer;
+                        if event.code == self.settings.keyboard_control.start {
+                            break NextScreen::Gaming;
                         }
                     }
                     _ => {}
@@ -75,6 +75,7 @@ impl screens::LoadScreen for WelcomeScreen<'_> {
                     drawer.draw_string(title_x, (i + title_y) as u16, title_content[i], Some(color));
                 }
             }
-        }
+        };
+        next_screen
     }
 }
