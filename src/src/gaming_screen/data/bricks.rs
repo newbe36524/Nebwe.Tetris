@@ -1,6 +1,5 @@
 use std::collections::HashMap;
-use std::convert::{TryFrom, TryInto};
-use std::iter::Map;
+use std::convert::TryInto;
 use rand::Rng;
 use crate::tetris::Point;
 
@@ -64,14 +63,14 @@ impl BrickCollection {
 
     fn get_new_one(&self, brick_type: BrickType, rotate_time: usize) -> Brick {
         let mut new_block = self.all_bricks[&brick_type].clone();
-        for i in 0..rotate_time {
+        for _i in 0..rotate_time {
             new_block.rotate();
         }
         new_block
     }
 }
 
-type BrickPoints = [Point; BLOCK_COUNT_OF_BRICK];
+pub type BrickPoints = [Point; BLOCK_COUNT_OF_BRICK];
 
 #[derive(Copy, Clone, Eq, PartialEq, Debug)]
 pub struct Brick {
@@ -82,6 +81,17 @@ impl Brick {
     pub fn new(points: TupleBrickPoints) -> Brick {
         Brick {
             points: create_points(points)
+        }
+    }
+    pub fn project_to_new_position(&self, point: Point) -> Brick {
+        let new_points = self.points.map(|t| {
+            Point {
+                y: point.y + t.y,
+                x: point.x + t.x,
+            }
+        }).try_into().unwrap();
+        Brick {
+            points: new_points
         }
     }
     pub fn rotate(&mut self) {
@@ -125,7 +135,6 @@ fn create_all_brick() -> HashMap<BrickType, Brick> {
 #[cfg(test)]
 mod tests {
     use crate::gaming_screen::data::bricks::*;
-    use crate::tetris::Point;
 
 
     #[test]

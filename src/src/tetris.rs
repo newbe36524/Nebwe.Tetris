@@ -14,6 +14,12 @@ pub struct Point {
     pub y: u16,
 }
 
+#[derive(Copy, Clone, Eq, PartialEq, Debug)]
+pub struct Movement {
+    pub x: i16,
+    pub y: i16,
+}
+
 impl Point {
     pub fn new(x: u16, y: u16) -> Point {
         Point { x, y }

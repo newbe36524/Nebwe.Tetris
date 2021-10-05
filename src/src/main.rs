@@ -4,6 +4,7 @@ mod screens;
 mod welcome_screen;
 mod pause_screen;
 mod gaming_screen;
+mod player;
 
 use crate::gaming_screen::GamingScreen;
 use crate::pause_screen::PauseScreen;
@@ -13,9 +14,11 @@ use crate::tetris::{AppSettings, Size, KeyboardControl};
 use crossterm::{
     event::{KeyCode},
 };
-
+use crate::drawer::CommandLineDrawer;
 
 fn main() {
+    env_logger::init();
+    log_panics::init();
     let gaming_blocks_size = Size {
         height: 20,
         width: 10,
@@ -53,15 +56,14 @@ fn main() {
         keyboard_control,
     };
 
-    let welcome_screen = WelcomeScreen {
+    let mut welcome_screen = WelcomeScreen {
         settings
     };
-    let pause_screen = PauseScreen {
+    let mut pause_screen = PauseScreen {
         settings
     };
-    let gaming_screen = GamingScreen {
-        settings
-    };
+    let drawer = CommandLineDrawer::new();
+    let mut gaming_screen = GamingScreen::new(&settings, &drawer);
     let mut next_screen: NextScreen;
     next_screen = welcome_screen.load();
     loop {

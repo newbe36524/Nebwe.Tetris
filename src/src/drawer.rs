@@ -17,14 +17,30 @@ pub trait Drawer {
     fn draw_frame(&self, x: u16, y: u16, w: u16, h: u16);
 }
 
-pub struct CommandLineDrawer {}
+pub struct NothingDrawer {}
 
+impl Drawer for NothingDrawer {
+    fn resize(&self, size: &Size) {}
+    fn draw_string(&self, x: u16, y: u16, content: &String, color: Option<Color>) {}
+    fn draw_string_on_point(&self, point: Point, content: &String, color: Option<Color>) {}
+    fn draw_region(&self, x: u16, y: u16, w: u16, h: u16, filler: &String) {}
+    fn draw_frame(&self, x: u16, y: u16, w: u16, h: u16) {}
+}
+
+impl NothingDrawer {
+    pub(crate) fn new() -> NothingDrawer {
+        NothingDrawer {}
+    }
+}
+
+pub struct CommandLineDrawer {}
 
 impl CommandLineDrawer {
     pub fn new() -> CommandLineDrawer {
         CommandLineDrawer {}
     }
 }
+
 
 impl Drawer for CommandLineDrawer {
     fn resize(&self, size: &Size) {

@@ -15,7 +15,7 @@ pub struct PauseScreen<'a> {
 }
 
 impl screens::LoadScreen for PauseScreen<'_> {
-    fn load(&self) -> NextScreen {
+    fn load(&mut self) -> NextScreen {
         let drawer = drawer::CommandLineDrawer::new();
         let window_size = tetris::Size {
             width: self.settings.welcome_region.width,

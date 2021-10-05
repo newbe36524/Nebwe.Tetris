@@ -7,19 +7,27 @@ use std::time::{Duration};
 use screens::{NextScreen};
 use std::io::{stdout};
 
+use std::fs::File;
+use std::io::BufReader;
+use rodio::{Decoder, OutputStream, source::Source};
+
 use crossterm::{
     execute,
     style::{Color},
     event::{poll, read, Event},
     terminal::{SetTitle},
 };
+use crate::player::Player;
 
 pub struct WelcomeScreen<'a> {
     pub settings: &'a tetris::AppSettings,
 }
 
 impl screens::LoadScreen for WelcomeScreen<'_> {
-    fn load(&self) -> NextScreen {
+    fn load(&mut self) -> NextScreen {
+
+
+
         let drawer = drawer::CommandLineDrawer::new();
         let window_size = tetris::Size {
             width: self.settings.welcome_region.width,

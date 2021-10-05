@@ -1,10 +1,5 @@
 pub trait LoadScreen {
-    fn load(&self) -> NextScreen;
-}
-
-pub trait RenderComponent {
-    fn render(&self);
-    fn init(&self);
+    fn load(&mut self) -> NextScreen;
 }
 
 pub enum NextScreen {
