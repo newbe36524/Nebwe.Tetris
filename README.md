@@ -13,9 +13,9 @@ You can download the latest version via the Release page ,unzip it and run it.
 
 ## Screenshots
 
-! [home](asset/screenshot_home.png)
-! [game](asset/screenshot_game.gif)
-! [pause](asset/screenshot_pause.png)
+![home](asset/screenshot_home.png)
+![game](asset/screenshot_game.gif)
+![pause](asset/screenshot_pause.png)
 
 ## Operation
 
