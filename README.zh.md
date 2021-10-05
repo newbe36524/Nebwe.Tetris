@@ -7,6 +7,10 @@
 
 C语言版本地址：<https://gitee.com/yks/Testri>
 
+## 下载和启动
+
+你可以通过 Release 页面下载最新的版本，解压即可启动。
+
 ## 截图
 
 ![home](asset/screenshot_home.png)

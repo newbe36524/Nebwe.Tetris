@@ -7,6 +7,10 @@ This is a small game that I wrote in C years ago. Now, I've done a complete rewr
 
 C version: <https://gitee.com/yks/Testri>
 
+## Download and Launch
+
+You can download the latest version via the Release page ,unzip it and run it.
+
 ## Screenshots
 
 ! [home](asset/screenshot_home.png)
