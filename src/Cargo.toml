@@ -7,7 +7,7 @@ edition = "2018"
 
 [dependencies]
 rand = "0.8.5"
-crossterm = "0.24.0"
+crossterm = "0.26.1"
 env_logger = "0.9.2"
 log-panics = "2.0"
 rodio = "0.16.0"
